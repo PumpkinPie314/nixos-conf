@@ -3,21 +3,10 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-let
-  unstable = import <nixos-unstable> {
-    config = {
-      allowUnfree = true;
-      permittedInsecurePackages = [
-        "dotnet-runtime-7.0.20"
-      ];
-    };
-  };
-in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      <home-manager/nixos>
     ];
 
   # Bootloader.
@@ -70,8 +59,8 @@ in
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -93,10 +82,7 @@ in
     isNormalUser = true;
     description = "elijah";
     extraGroups = [ "networkmanager" "wheel" ];
-  };
-  home-manager.users.elijah = {pkgs, ...}: {
-    home.stateVersion = "24.11";
-  };
+  }; 
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "elijah";
@@ -108,7 +94,9 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
+  nixpkgs.config.permittedInsecurePackages = [
+        "dotnet-runtime-7.0.20"
+  ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -128,7 +116,7 @@ in
     prismlauncher
     microsoft-edge
     google-chrome
-    unstable.vintagestory
+    vintagestory
     obsidian
   ];
   programs.nix-ld.enable = true;
