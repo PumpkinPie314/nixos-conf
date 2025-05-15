@@ -107,11 +107,18 @@
     cargo
     rustup
     uv
-    jetbrains.pycharm-community-bin
+    gradle
+    zulu
+    r2modman
+    wayclip # for a nvim provider
 
     discord
     discover-overlay # discord overlay
     stremio
+    vlc
+    krita
+    code-cursor
+    vscode
     wezterm
     prismlauncher
     microsoft-edge
