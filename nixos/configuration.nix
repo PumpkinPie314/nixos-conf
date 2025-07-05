@@ -48,6 +48,12 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+  
+  # added for plover:
+  services.udev.extraRules = ''
+    KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"
+  '';
+
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -81,7 +87,7 @@
   users.users.elijah = {
     isNormalUser = true;
     description = "elijah";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "input"]; #input added for plover
   }; 
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
@@ -111,7 +117,9 @@
     zulu
     r2modman
     wayclip # for a nvim provider
-
+    
+    protonvpn-gui
+    plover.dev
     discord
     discover-overlay # discord overlay
     stremio
@@ -141,7 +149,6 @@
       la = "ls -a";
     };
   };
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
