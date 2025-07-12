@@ -12,6 +12,9 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  
+  # let memory hunger programs get bigger before being killed. (added for vintage story)
+  boot.kernel.sysctl."vm.overcommit_memory" = 1;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -40,6 +43,14 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
+
+  # swap added after initial install (added for vintage story)
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16 * 1024; #16 GB
+    }
+  ];
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -118,7 +129,7 @@
     r2modman
     wayclip # for a nvim provider
     
-    protonvpn-gui
+    protonvpn-cli
     plover.dev
     discord
     discover-overlay # discord overlay
