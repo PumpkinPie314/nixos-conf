@@ -133,6 +133,7 @@
     plover.dev
     discord
     discover-overlay # discord overlay
+    slack
     stremio
     vlc
     krita
